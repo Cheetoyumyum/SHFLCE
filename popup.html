@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ShuffleCE Settings</title>
+        <link rel="stylesheet" href="popup.css">
+    </head>
+<body>
+    <div id="settings-container">
+        <h1>ShuffleCE Settings</h1>
+
+        <!-- Rank filter -->
+        <label for="rank-filter">Filter by Rank:</label>
+        <select id="rank-filter">
+            <option value="Wood">Wood</option>
+            <option value="Bronze">Bronze</option>
+            <option value="Silver">Silver</option>
+            <option value="Gold">Gold</option>
+            <option value="Platinum">Platinum</option>
+            <option value="Jade">Jade</option>
+            <option value="Sapphire">Sapphire</option>
+            <option value="Ruby">Ruby</option>
+            <option value="Diamond">Diamond</option>
+            <option value="Opal">Opal</option>
+            <option value="Dragon">Dragon</option>
+            <option value="Mythic">Mythic</option>
+        </select>
+
+        <!-- Emote Upload -->
+        <h2>Upload Custom Emote</h2>
+        <input type="file" id="emote-upload" accept="image/*">
+        <button id="upload-btn">Upload</button>
+
+        <p id="status"></p>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

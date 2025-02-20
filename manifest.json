@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "name": "ShuffleCE",
+    "version": "1.0",
+    "description": "Custom emotes, chat filtering, and enhancements for Shuffle.com chat.",
+    "permissions": ["storage", "activeTab"],
+    "host_permissions": ["*://shuffle.com/*"],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "icons/gear-icon-16.png",
+            "48": "icons/gear-icon-48.png",
+            "128": "icons/gear-icon-128.png"
+        }
+    },
+    "content_scripts": [
+        {
+            "matches": ["*://shuffle.com/*"],
+            "js": ["content.js"]
+        }
+    ]
+}

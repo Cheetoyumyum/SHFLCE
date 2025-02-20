@@ -1,0 +1,45 @@
+/* Specific styling for the popup container */
+.popup-container {
+    background-color: rgb(8, 8, 8); /* Dark background */
+    color: white; /* Text color */
+    font-family: Arial, sans-serif; /* Default font */
+    margin: 0;
+    padding: 20px;
+    max-width: 300px; /* Optional: adjust size */
+    min-width: 250px; /* Optional: adjust size */
+    border: 1px solid rgb(42, 46, 56); /* 1px border */
+    border-radius: 10px 10px 0 0; /* Rounded top corners */
+    position: fixed; /* Ensure it's overlaying other content */
+    z-index: 9999; /* Ensure it's on top of other elements */
+}
+
+/* Title style */
+.popup-container h1 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+/* Form elements styling */
+.popup-container select,
+.popup-container input[type="file"],
+.popup-container button {
+    width: 100%; /* Make inputs and buttons fill the width */
+    padding: 8px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid rgb(42, 46, 56);
+    background-color: rgb(19, 26, 34); /* Slightly darker for contrast */
+    color: white;
+}
+
+/* Hover effect for button */
+.popup-container button:hover {
+    background-color: rgb(31, 48, 67); /* Lighter on hover */
+}
+
+/* Status message style */
+.popup-container #status {
+    font-size: 0.9em;
+    color: rgb(0, 255, 0); /* Green for success messages */
+    margin-top: 10px;
+}
