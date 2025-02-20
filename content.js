@@ -114,65 +114,62 @@ function initializeObserver(targetNode) {
     }
 
     function injectCustomUI(chatInputContainer) {
+        const customUIClass = "ce-custom-ui-container";
+        let existingUI = document.querySelector(`.${customUIClass}`);
+        if (existingUI) {
+            if (!document.body.contains(existingUI)) {
+                existingUI = null;
+            } else {
+                return;
+            }
+        }
+
         const customUIContainer = document.createElement("div");
-        customUIContainer.classList.add("ce-custom-ui-container");
+        customUIContainer.classList.add(customUIClass);
 
         const gearButton = document.createElement("button");
         gearButton.classList.add("gear-icon", "ChatFooter_emojiButton__8C6Dn");
-        gearButton.innerHTML = '<svg width="24" height="24" viewBox="0 0 512 512" fill="#686f7c"><path d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-17.7c-13.4 10.3-28.2 18.9-44 25.4l-12.5 57.1c-2 9.1-9 16.3-18.2 17.8c-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-12.5-57.1c-15.8-6.5-30.6-15.1-44-25.4L83.1 425.9c-8.8 2.8-18.6 .3-24.5-6.8c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 273.1 64 264.6 64 256s.6-17.1 1.7-25.4L22.4 191.2c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-7.2 15.7-9.6 24.5-6.8l55.7 17.7c13.4-10.3 28.2-18.9 44-25.4l12.5-57.1c2-9.1 9-16.3 18.2-17.8C227.3 1.2 241.5 0 256 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l12.5 57.1c15.8 6.5 30.6 15.1 44 25.4l55.7-17.7c8.8-2.8 18.6-.3 24.5 6.8c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336a80 80 0 1 0 0-160 80 80 0 1 0 0 160z"></path></svg>';
+        gearButton.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="#686f7c"><path d="M14.037,20.937a1.015,1.015,0,0,1-.518-.145l-3.334-2a2.551,2.551,0,0,1-1.233-2.176V12.091a1.526,1.526,0,0,0-.284-.891L4.013,4.658a1.01,1.01,0,0,1,.822-1.6h14.33a1.009,1.009,0,0,1,.822,1.6h0L15.332,11.2a1.527,1.527,0,0,0-.285.891v7.834a1.013,1.013,0,0,1-1.01,1.012ZM4.835,4.063,9.482,10.62a2.515,2.515,0,0,1,.47,1.471v4.524a1.543,1.543,0,0,0,.747,1.318l3.334,2,.014-7.843a2.516,2.516,0,0,1,.471-1.471l4.654-6.542,0,0Z"></path></svg>';
 
-        const filterMenu = createFilterMenu();
+        const selectElement = document.createElement('select');
+        selectElement.style.backgroundColor = '#121418';
+        selectElement.style.border = '1px solid #2a2e38';
+        selectElement.style.color = '#ffffff';
+        selectElement.style.padding = '5px';
+        selectElement.style.borderRadius = '5px';
+        selectElement.style.cursor = 'pointer';
+        selectElement.style.position = 'absolute';
+        selectElement.style.zIndex = '1000';
+        selectElement.style.left = '-5px';
 
-        gearButton.addEventListener('click', function (event) {
-            event.stopPropagation();
-            toggleFilterMenu(filterMenu);
-            const rect = gearButton.getBoundingClientRect();
-            filterMenu.style.top = `${rect.bottom + window.scrollY}px`;
-            filterMenu.style.left = `${rect.left}px`;
-        });
-
-        document.addEventListener('click', function (event) {
-            if (!filterMenu.contains(event.target) && event.target !== gearButton) {
-                filterMenu.style.display = "none";
-            }
-        });
-
-        chatInputContainer.insertBefore(gearButton, chatInputContainer.firstChild);
-        chatInputContainer.appendChild(filterMenu);
-        customUIInjected = true;
-    }
-
-    function createFilterMenu() {
-        const filterMenu = document.createElement('div');
-        filterMenu.classList.add('filter-menu', 'ChatFooter_emojiButton__8C6Dn');
-
-        const select = document.createElement('select');
-        select.classList.add('rank-selector');
-
-        for (const [rank, value] of Object.entries(rankHierarchy)) {
+        for (const rank of Object.keys(rankHierarchy)) {
             const option = document.createElement('option');
-            option.value = value;
+            option.value = rank;
             option.textContent = rank;
-            select.appendChild(option);
+            selectElement.appendChild(option);
         }
 
-        select.addEventListener('change', function (event) {
-            selectedRankValue = Number(event.target.value);
+        selectElement.addEventListener('change', function () {
+            selectedRankValue = rankHierarchy[this.value];
             filterMessages();
         });
 
-        filterMenu.appendChild(select);
-        filterMenu.style.display = "none";
+        gearButton.addEventListener('click', function (event) {
+            event.stopPropagation();
+            selectElement.style.display = selectElement.style.display === 'none' ? 'block' : 'none';
+        });
 
-        return filterMenu;
-    }
+        document.addEventListener('click', function (event) {
+            if (!selectElement.contains(event.target) && event.target !== gearButton) {
+                selectElement.style.display = "none";
+            }
+        });
 
-    function toggleFilterMenu(filterMenu) {
-        if (filterMenu.style.display === "none") {
-            filterMenu.style.display = "block";
-        } else {
-            filterMenu.style.display = "none";
-        }
+        customUIContainer.appendChild(gearButton);
+        customUIContainer.appendChild(selectElement);
+        chatInputContainer.insertBefore(customUIContainer, chatInputContainer.firstChild);
+
+        selectElement.style.display = 'none';
     }
 
     checkAndRunCode();
