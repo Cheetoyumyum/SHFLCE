@@ -53,4 +53,4 @@ If you want to contribute or modify the extension, feel free to do the following
 
 
 
-# Wanna get me a duel buy? or a coffee. tip me @ [https://shuffle.com/?md-tab=tip&modal=wallet&md-name=cheetoyumyum]
+# Wanna get me a duel buy? or a coffee. [tip me here!](https://shuffle.com/?md-tab=tip&modal=wallet&md-name=cheetoyumyum)
