@@ -6,7 +6,6 @@
     "permissions": ["storage", "activeTab"],
     "host_permissions": ["*://shuffle.com/*"],
     "action": {
-        "default_popup": "popup.html",
         "default_icon": {
             "16": "icons/gear-icon-16.png",
             "48": "icons/gear-icon-48.png",
